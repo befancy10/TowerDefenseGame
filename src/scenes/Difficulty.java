@@ -2,7 +2,7 @@ package scenes;
 
 public class Difficulty {
 	
-	int difficultyINT = 1;
+	int difficultyINT;
 	String difficultyString;
 	
 	public Difficulty(int difficultyINT) {
@@ -18,6 +18,11 @@ public class Difficulty {
 			this.difficultyString = "Hard";
 		}
 		
+	}
+	
+	public void setObjectDifficulty(int DifficultyINT, String DifficultyString) {
+		setDifficultyINT(DifficultyINT);
+		setDifficultyString(DifficultyString);
 	}
 
 	public int getDifficultyINT() {

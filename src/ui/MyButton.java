@@ -10,6 +10,7 @@ public class MyButton {
 	private String text;
 	private Rectangle bounds;
 	private boolean mouseOver, mousePressed;
+	public Color color;
 
 	// For normal Buttons
 	public MyButton(String text, int x, int y, int width, int height) {
@@ -109,5 +110,16 @@ public class MyButton {
 	public int getId() {
 		return id;
 	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	
+	
 
 }

@@ -3,16 +3,19 @@ package scenes;
 import java.awt.image.BufferedImage;
 
 import main.Game;
+import scenes.Difficulty;
 
 public class GameScene{
 
 	protected Game game;
+	protected Difficulty difficulty;
 	protected int animationIndex;
 	protected int ANIMATION_SPEED = 25;
 	protected int tick;
 
 	public GameScene(Game game) {
 		this.game = game;
+		difficulty = new Difficulty(1);
 	}
 
 	public Game getGame() {

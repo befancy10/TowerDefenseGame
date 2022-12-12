@@ -3,8 +3,9 @@ package scenes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Component;
+
 import main.Game;
-import scenes.Difficulty;
 import ui.MyButton;
 import static main.GameStates.*;
 
@@ -12,13 +13,11 @@ public class Menu extends GameScene implements SceneMethods {
 
 	private MyButton bPlaying, bEdit, bSettings, bQuit;
 	private String difficultiesText;
-	private Difficulty difficulty;
 
 	public Menu(Game game) {
 		super(game);
 		initButtons();
-		difficulty = new Difficulty(1);
-		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString();
+		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString() + difficulty.difficultyINT;
 	}
 
 	private void initButtons() {
@@ -63,9 +62,11 @@ public class Menu extends GameScene implements SceneMethods {
 		else if (bEdit.getBounds().contains(x, y))
 			SetGameState(EDIT);
 		else if (bSettings.getBounds().contains(x, y))
-			SetGameState(WIN);
-		else if (bQuit.getBounds().contains(x, y))
+			SetGameState(SETTINGS);
+		else if (bQuit.getBounds().contains(x, y)) {
+			System.out.println("close");
 			System.exit(0);
+		}
 	}
 
 	@Override
