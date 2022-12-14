@@ -17,7 +17,9 @@ public abstract class Enemy {
 	protected int lastDir;
 	protected boolean alive = true;
 	protected int slowTickLimit = 120;
+	protected int burnTickLimit = 120;
 	protected int slowTick = slowTickLimit;
+	protected int burntick = burnTickLimit;
 
 	public Enemy(float x, float y, int ID, int enemyType, EnemyManager enemyManager) {
 		this.x = x;
@@ -53,6 +55,10 @@ public abstract class Enemy {
 	public void slow() {
 		slowTick = 0;
 	}
+	
+	public void burn() {
+		burntick = 0;
+	}
 
 	public void move(float speed, int dir) {
 		lastDir = dir;
@@ -60,6 +66,12 @@ public abstract class Enemy {
 		if (slowTick < slowTickLimit) {
 			slowTick++;
 			speed *= 0.5f;
+		}
+		
+		if(burntick < burnTickLimit)
+		{
+			burntick++;
+			health -=5;
 		}
 
 		switch (dir) {
@@ -130,5 +142,10 @@ public abstract class Enemy {
 	public boolean isSlowed() {
 		return slowTick < slowTickLimit;
 	}
-
-}
+	
+	public boolean isburnt()
+	{
+		return burntick < burnTickLimit;
+	}
+				
+	}

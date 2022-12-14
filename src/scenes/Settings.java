@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import main.Game;
@@ -16,7 +17,6 @@ public class Settings extends GameScene implements SceneMethods {
 
 	public Settings(Game game) {
 		super(game);
-		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString() + difficulty.difficultyINT;
 		initButtons();
 		
 	}
@@ -44,7 +44,10 @@ public class Settings extends GameScene implements SceneMethods {
 
 		drawButtons(g);
 		
-		g.drawString(this.difficultiesText,  245, 700);
+		drawChooseDifficulty(g);
+		
+	//	drawDifficultyText(g);
+		
 		
 	}
 
@@ -55,6 +58,18 @@ public class Settings extends GameScene implements SceneMethods {
 		bHard.draw(g);
 	}
 	
+/*	private void drawDifficultyText(Graphics g) {
+		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString() + difficulty.getDifficultyINT();
+		g.setColor(Color.RED);
+		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
+		g.drawString(difficultiesText, 245, 700);
+	}
+*/
+	private void drawChooseDifficulty(Graphics g) {
+		g.setColor(Color.RED);
+		g.setFont(new Font("LucidaSans", Font.BOLD, 33));
+		g.drawString("CHOOSE THE DIFFICULTY", 110, 150);
+	}
 
 	@Override
 	public void mouseClicked(int x, int y) {

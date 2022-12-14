@@ -3,10 +3,10 @@ package scenes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Component;
 
 import main.Game;
 import ui.MyButton;
+import ui.ActionBar;
 import static main.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods {
@@ -17,7 +17,7 @@ public class Menu extends GameScene implements SceneMethods {
 	public Menu(Game game) {
 		super(game);
 		initButtons();
-		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString() + difficulty.difficultyINT;
+		
 	}
 
 	private void initButtons() {
@@ -39,9 +39,8 @@ public class Menu extends GameScene implements SceneMethods {
 	public void render(Graphics g) {
 
 		drawButtons(g);
-		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
-		g.setColor(Color.red);
-		g.drawString(this.difficultiesText,  245, 700);
+	
+		drawDifficultyText(g);
 
 	}
 
@@ -54,6 +53,20 @@ public class Menu extends GameScene implements SceneMethods {
 	}
 	
 
+	private void drawDifficultyText(Graphics g) {
+		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString();
+		g.setColor(Color.RED);
+		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
+		g.drawString(difficultiesText, 245, 700);
+	}
+	
+	private void drawChooseDifficulty(Graphics g) {
+		g.setColor(Color.RED);
+		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
+		g.drawString("", 245, 700);
+	}
+	
+	
 	@Override
 	public void mouseClicked(int x, int y) {
 

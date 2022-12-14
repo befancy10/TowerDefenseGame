@@ -37,11 +37,17 @@ public class Tower {
 			range += 20;
 			cooldown -= 15;
 			break;
-		case WIZARD:
+		case FIREFIZARD:
 			dmg += 3;
 			range += 20;
 			cooldown -= 10;
 			break;
+		case ICEWIZ:
+			dmg += 3;
+			range += 20;
+			cooldown -= 10;
+			break;
+			
 		}
 	}
 

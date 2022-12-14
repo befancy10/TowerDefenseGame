@@ -2,13 +2,14 @@ package scenes;
 
 public class Difficulty {
 	
-	int difficultyINT;
-	String difficultyString;
+	public static int difficultyINT;
+	public static String difficultyString;
 	
-	public Difficulty(int difficultyINT) {
+	public Difficulty() {
 		super();
-		this.difficultyINT = difficultyINT;
-		if (difficultyINT == 1) {
+		this.difficultyINT = 1;
+		this.difficultyString = "Easy";
+	/*	if (difficultyINT == 1) {
 			this.difficultyString = "Easy";
 		}
 		else if (difficultyINT == 2) {
@@ -17,7 +18,7 @@ public class Difficulty {
 		else if (difficultyINT == 3) {
 			this.difficultyString = "Hard";
 		}
-		
+		*/
 	}
 	
 	public void setObjectDifficulty(int DifficultyINT, String DifficultyString) {
@@ -25,7 +26,7 @@ public class Difficulty {
 		setDifficultyString(DifficultyString);
 	}
 
-	public int getDifficultyINT() {
+	public static int getDifficultyINT() {
 		return difficultyINT;
 	}
 

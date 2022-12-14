@@ -5,6 +5,7 @@ import static main.GameStates.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.color.ColorSpace;
 import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
@@ -55,7 +56,7 @@ public class ActionBar extends Bar {
 		bPause = new MyButton("Pause", 2, 682, 100, 30);
 		bRestart =  new MyButton("Restart", 2, 722, 100, 30);
 
-		towerButtons = new MyButton[3];
+		towerButtons = new MyButton[4];
 
 		int w = 50;
 		int h = 50;
@@ -63,7 +64,7 @@ public class ActionBar extends Bar {
 		int yStart = 650;
 		int xOffset = (int) (w * 1.1f);
 
-		for (int i = 0; i < towerButtons.length; i++)
+		for (int i = 0; i < 4; i++)
 			towerButtons[i] = new MyButton("", xStart + xOffset * i, yStart, w, h, i);
 
 //		sellTower, upgradeTower; 
@@ -100,8 +101,10 @@ public class ActionBar extends Bar {
 	public void draw(Graphics g) {
 
 		// Background
-		g.setColor(new Color(220, 123, 15));
+		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);
+		g.setColor(Color.black);
+		g.drawRect(x, y, width, height);
 
 		// Buttons
 		drawButtons(g);
@@ -132,19 +135,25 @@ public class ActionBar extends Bar {
 	}
 
 	private void drawTowerCost(Graphics g) {
-		g.setColor(Color.gray);
-		g.fillRect(280, 650, 120, 50);
-		g.setColor(Color.black);
-		g.drawRect(280, 650, 120, 50);
-
-		g.drawString("" + getTowerCostName(), 285, 670);
-		g.drawString("Cost: " + getTowerCostCost() + "g", 285, 695);
-
-		// Show this if player lacks gold for the selected tower.
-		if (isTowerCostMoreThanCurrentGold()) {
+		if (isTowerCostMoreThanCurrentGold()) 
+		{
+			g.setColor(Color.white);
+			g.fillRect(400, 650, 150, 50);
+			g.setColor(Color.black);
+			g.drawRect(400, 650, 150, 50);
 			g.setColor(Color.RED);
-			g.drawString("Can't Afford", 270, 725);
+			g.drawString("Can't Afford", 410, 680);
 
+		}
+		else 
+		{
+			g.setColor(Color.white);
+			g.fillRect(400, 650, 120, 50);
+			g.setColor(Color.black);
+			g.drawRect(400, 650, 120, 50);
+
+			g.drawString("" + getTowerCostName(), 403,670);
+			g.drawString("Cost: " + getTowerCostCost() + "g", 403, 695);
 		}
 
 	}

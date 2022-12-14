@@ -31,18 +31,20 @@ public class ProjectileManager {
 
 	private void importImgs() {
 		BufferedImage atlas = LoadSave.getSpriteAtlas();
-		proj_imgs = new BufferedImage[3];
+		proj_imgs = new BufferedImage[4];
 
-		for (int i = 0; i < 3; i++)
-			proj_imgs[i] = atlas.getSubimage((7 + i) * 32, 32, 32, 32);
+		proj_imgs[0] = atlas.getSubimage(9 * 32,1* 32, 32, 32);
+		proj_imgs[1] = atlas.getSubimage(1 * 32,2* 32, 32, 32);
+		proj_imgs[2] = atlas.getSubimage(8 * 32,2* 32, 32, 32);
+		proj_imgs[3] = atlas.getSubimage(0 * 32,3* 32, 32, 32);
 		importExplosion(atlas);
 	}
 
 	private void importExplosion(BufferedImage atlas) {
-		explo_imgs = new BufferedImage[7];
+		explo_imgs = new BufferedImage[6];
 
-		for (int i = 0; i < 7; i++)
-			explo_imgs[i] = atlas.getSubimage(i * 32, 32 * 2, 32, 32);
+		for (int i = 0; i < 5; i++)
+			explo_imgs[i] = atlas.getSubimage((2 +i) * 32, 2* 32, 32, 32);
 
 	}
 
@@ -93,7 +95,7 @@ public class ProjectileManager {
 			}
 
 		for (Explosion e : explosions)
-			if (e.getIndex() < 7)
+			if (e.getIndex() < 6)
 				e.update();
 	}
 
@@ -120,9 +122,10 @@ public class ProjectileManager {
 			if (e.isAlive())
 				if (e.getBounds().contains(p.getPos())) {
 					e.hurt(p.getDmg());
-					if (p.getProjectileType() == CHAINS)
+					if (p.getProjectileType() == ICEBALL)
 						e.slow();
-
+					if(p.getProjectileType() == FIREBALL)
+						e.burn();
 					return true;
 				}
 		}
@@ -160,7 +163,7 @@ public class ProjectileManager {
 
 	private void drawExplosions(Graphics2D g2d) {
 		for (Explosion e : explosions)
-			if (e.getIndex() < 7)
+			if (e.getIndex() < 6)
 				g2d.drawImage(explo_imgs[e.getIndex()], (int) e.getPos().x - 16, (int) e.getPos().y - 16, null);
 	}
 
@@ -170,8 +173,11 @@ public class ProjectileManager {
 			return ARROW;
 		case CANNON:
 			return BOMB;
-		case WIZARD:
-			return CHAINS;
+		case ICEWIZ:
+			return ICEBALL;
+		case FIREFIZARD:
+			return FIREBALL;
+			
 		}
 		return 0;
 	}

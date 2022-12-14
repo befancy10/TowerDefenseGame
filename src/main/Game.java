@@ -66,7 +66,7 @@ public class Game extends JFrame implements Runnable {
 		
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setTitle("Your Game");
+		setTitle("Tower Defense");
 		add(gameScreen);
 		pack();
 		setVisible(true);

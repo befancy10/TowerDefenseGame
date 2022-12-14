@@ -6,11 +6,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import enemies.Bat;
+import enemies.jelly;
 import enemies.Enemy;
-import enemies.Knight;
-import enemies.Orc;
-import enemies.Wolf;
+import enemies.ghost;
+import enemies.bat;
+import enemies.boss;
+import enemies.gengar;
 import helpz.LoadSave;
 import objects.PathPoint;
 import scenes.Playing;
@@ -26,10 +27,11 @@ public class EnemyManager {
 	private PathPoint start, end;
 	private int HPbarWidth = 20;
 	private BufferedImage slowEffect;
+	private BufferedImage burnEffect;
 
 	public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
 		this.playing = playing;
-		enemyImgs = new BufferedImage[4];
+		enemyImgs = new BufferedImage[5];
 		this.start = start;
 		this.end = end;
 
@@ -38,13 +40,15 @@ public class EnemyManager {
 	}
 
 	private void loadEffectImg() {
-		slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 9, 32 * 2, 32, 32);
+		slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 1, 32 * 3, 32, 32);
+		burnEffect = LoadSave.getSpriteAtlas().getSubimage(32*2, 32*3, 32, 32);
 	}
+	
 
 	private void loadEnemyImgs() {
 		BufferedImage atlas = LoadSave.getSpriteAtlas();
-		for (int i = 0; i < 4; i++)
-			enemyImgs[i] = atlas.getSubimage(i * 32, 32, 32, 32);
+		for (int i = 0; i < 5; i++)
+			enemyImgs[i] = atlas.getSubimage((3 +i) * 32, 32, 32, 32);
 
 	}
 
@@ -156,18 +160,20 @@ public class EnemyManager {
 		int y = start.getyCord() * 32;
 
 		switch (enemyType) {
-		case ORC:
-			enemies.add(new Orc(x, y, 0, this));
+		case BATBAT:
+			enemies.add(new bat(x, y, 0, this));
 			break;
-		case BAT:
-			enemies.add(new Bat(x, y, 0, this));
+		case JELLYFISH:
+			enemies.add(new jelly(x, y, 0, this));
 			break;
-		case KNIGHT:
-			enemies.add(new Knight(x, y, 0, this));
+		case GHOST:
+			enemies.add(new ghost(x, y, 0, this));
 			break;
-		case WOLF:
-			enemies.add(new Wolf(x, y, 0, this));
+		case GENGAR:
+			enemies.add(new gengar(x, y, 0, this));
 			break;
+		case BOSS:
+			enemies.add(new boss(x,y,0, this));
 		}
 
 	}
@@ -185,6 +191,8 @@ public class EnemyManager {
 	private void drawEffects(Enemy e, Graphics g) {
 		if (e.isSlowed())
 			g.drawImage(slowEffect, (int) e.getX(), (int) e.getY(), null);
+		if(e.isburnt())
+			g.drawImage(burnEffect, (int) e.getX(), (int) e.getY(), null);
 
 	}
 
