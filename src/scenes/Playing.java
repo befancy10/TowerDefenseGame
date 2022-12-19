@@ -5,7 +5,10 @@ import static main.GameStates.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.lang.System.Logger.Level;
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.concurrent.Flow.Publisher;
 
 import enemies.Enemy;
 import helpz.LoadSave;
@@ -18,10 +21,11 @@ import objects.PathPoint;
 import objects.Tower;
 import ui.ActionBar;
 import static helpz.Constants.Tiles.GRASS_TILE;
+import scenes.Difficulty;
 
 public class Playing extends GameScene implements SceneMethods {
 
-	private int[][] lvl;
+	public static int[][] lvl;
 
 	private ActionBar actionBar;
 	private int mouseX, mouseY;
@@ -29,10 +33,11 @@ public class Playing extends GameScene implements SceneMethods {
 	private TowerManager towerManager;
 	private ProjectileManager projManager;
 	private WaveManager waveManager;
-	private PathPoint start, end;
+	public static PathPoint start, end;
 	private Tower selectedTower;
 	private int goldTick;
 	private boolean gamePaused;
+	
 
 	public Playing(Game game) {
 		super(game);
@@ -59,14 +64,11 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	private void loadDefaultLevel() {
-		lvl = LoadSave.GetLevelData("new_level");
-		ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
-		start = points.get(0);
-		end = points.get(1);
-	}
 
-	public void setLevel(int[][] lvl) {
-		this.lvl = lvl;
+			lvl = LoadSave.GetLevelData("Easy");
+			ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("Easy");
+			start = points.get(0);
+			end = points.get(1);
 	}
 
 	public void update() {
@@ -332,5 +334,5 @@ public class Playing extends GameScene implements SceneMethods {
 		gamePaused = false;
 
 	}
-
+	
 }

@@ -7,8 +7,9 @@ import scenes.Difficulty;
 
 public class GameScene{
 
-	protected Game game;
+	public Game game;
 	public Difficulty difficulty;
+	public static int level = 1;
 	protected int animationIndex;
 	protected int ANIMATION_SPEED = 25;
 	protected int tick;

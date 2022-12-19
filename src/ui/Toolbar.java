@@ -9,14 +9,18 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PrimitiveIterator.OfDouble;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import helpz.LoadSave;
 import objects.Tile;
 import scenes.Editing;
+import scenes.GameScene;
 
 public class Toolbar extends Bar {
 	private Editing editing;
-	private MyButton bMenu, bSave;
+	private MyButton bMenu, bSave,bEasy, bMedium, bHard;
 	private MyButton bPathStart, bPathEnd;
 	private BufferedImage pathStart, pathEnd;
 	private Tile selectedTile;
@@ -35,14 +39,18 @@ public class Toolbar extends Bar {
 	}
 
 	private void initPathImgs() {
-		pathStart = LoadSave.getSpriteAtlas().getSubimage(7 * 32, 2 * 32, 32, 32);
-		pathEnd = LoadSave.getSpriteAtlas().getSubimage(8 * 32, 2 * 32, 32, 32);
+		pathStart = LoadSave.getSpriteAtlas().getSubimage(1 * 32, 1 * 32, 32, 32);
+		pathEnd = LoadSave.getSpriteAtlas().getSubimage(2 * 32, 1 * 32, 32, 32);
 	}
 
 	private void initButtons() {
 
 		bMenu = new MyButton("Menu", 2, 642, 100, 30);
 		bSave = new MyButton("Save", 2, 674, 100, 30);
+		bEasy = new MyButton("Easy", 2, 704, 100, 30);
+		bMedium = new MyButton("Medium", 2, 734, 100, 30);
+		bHard = new MyButton("Hard", 2, 764, 100, 30);
+
 
 		int w = 50;
 		int h = 50;
@@ -65,7 +73,7 @@ public class Toolbar extends Bar {
 
 	}
 
-	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {
+	private void initMapButton(MyButton b, ArrayList<Tile> list, int x, int y, int xOff, int w, int h, int id) {		
 		b = new MyButton("", x + xOff * id, y, w, h, id);
 		map.put(b, list);
 	}
@@ -74,7 +82,7 @@ public class Toolbar extends Bar {
 		editing.saveLevel();
 	}
 
-	public void rotateSprite() {
+	public void rotateSpriteright() {
 
 		currentIndex++;
 		if (currentIndex >= map.get(currentButton).size())
@@ -84,11 +92,14 @@ public class Toolbar extends Bar {
 
 	}
 
+
 	public void draw(Graphics g) {
 
 		// Background
-		g.setColor(new Color(220, 123, 15));
+		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);
+		g.setColor(Color.black);
+		g.drawRect(x, y, width, height);
 
 		// Buttons
 		drawButtons(g);
@@ -97,12 +108,17 @@ public class Toolbar extends Bar {
 	private void drawButtons(Graphics g) {
 		bMenu.draw(g);
 		bSave.draw(g);
+		if(editing.isgamesave())
+		{
+			bEasy.draw(g);
+			bMedium.draw(g);
+			bHard.draw(g);
+			
+		}
 
 		drawPathButton(g, bPathStart, pathStart);
 		drawPathButton(g, bPathEnd, pathEnd);
 
-//		bPathStart.draw(g);
-//		bPathEnd.draw(g);
 
 		drawNormalButton(g, bGrass);
 		drawNormalButton(g, bWater);
@@ -110,6 +126,7 @@ public class Toolbar extends Bar {
 		drawMapButtons(g);
 
 	}
+	
 
 	private void drawPathButton(Graphics g, MyButton b, BufferedImage img) {
 
@@ -128,7 +145,6 @@ public class Toolbar extends Bar {
 		for (Map.Entry<MyButton, ArrayList<Tile>> entry : map.entrySet()) {
 			MyButton b = entry.getKey();
 			BufferedImage img = entry.getValue().get(0).getSprite();
-
 			g.drawImage(img, b.x, b.y, b.width, b.height, null);
 			drawButtonFeedback(g, b);
 		}
@@ -150,12 +166,32 @@ public class Toolbar extends Bar {
 	public BufferedImage getButtImg(int id) {
 		return editing.getGame().getTileManager().getSprite(id);
 	}
+	
+	private void togglesave()
+	{
+		editing.setgamesave(!editing.isgamesave());
+
+	}
 
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y))
 			SetGameState(MENU);
 		else if (bSave.getBounds().contains(x, y))
-			saveLevel();
+		{
+			togglesave();
+		}
+		else if(bEasy.getBounds().contains(x,y))
+		{
+			LoadSave.SaveLevel("easy", editing.lvl, editing.start, editing.end);
+		}
+		else if(bMedium.getBounds().contains(x,y))
+		{
+			LoadSave.SaveLevel("medium", editing.lvl, editing.start, editing.end);
+		}
+		else if(bHard.getBounds().contains(x,y))
+		{
+			LoadSave.SaveLevel("hard", editing.lvl, editing.start, editing.end);
+		}
 		else if (bWater.getBounds().contains(x, y)) {
 			selectedTile = editing.getGame().getTileManager().getTile(bWater.getId());
 			editing.setSelectedTile(selectedTile);
@@ -164,7 +200,6 @@ public class Toolbar extends Bar {
 			selectedTile = editing.getGame().getTileManager().getTile(bGrass.getId());
 			editing.setSelectedTile(selectedTile);
 			return;
-
 		} else if (bPathStart.getBounds().contains(x, y)) {
 			selectedTile = new Tile(pathStart, -1, -1);
 			editing.setSelectedTile(selectedTile);
@@ -188,6 +223,9 @@ public class Toolbar extends Bar {
 	public void mouseMoved(int x, int y) {
 		bMenu.setMouseOver(false);
 		bSave.setMouseOver(false);
+		bEasy.setMouseOver(false);
+		bMedium.setMouseOver(false);
+		bHard.setMouseOver(false);
 		bWater.setMouseOver(false);
 		bGrass.setMouseOver(false);
 		bPathStart.setMouseOver(false);
@@ -200,6 +238,12 @@ public class Toolbar extends Bar {
 			bMenu.setMouseOver(true);
 		else if (bSave.getBounds().contains(x, y))
 			bSave.setMouseOver(true);
+		else if (bEasy.getBounds().contains(x,y))
+			bEasy.setMouseOver(true);
+		else if (bMedium.getBounds().contains(x,y))
+			bMedium.setMouseOver(true);
+		else if (bHard.getBounds().contains(x,y))
+			bHard.setMouseOver(true);
 		else if (bWater.getBounds().contains(x, y))
 			bWater.setMouseOver(true);
 		else if (bGrass.getBounds().contains(x, y))
@@ -223,6 +267,12 @@ public class Toolbar extends Bar {
 			bMenu.setMousePressed(true);
 		else if (bSave.getBounds().contains(x, y))
 			bSave.setMousePressed(true);
+		else if(bEasy.getBounds().contains(x,y))
+			bEasy.setMousePressed(true);
+		else if(bMedium.getBounds().contains(x,y))
+			bMedium.setMousePressed(true);
+		else if(bHard.getBounds().contains(x,y))
+			bHard.setMousePressed(true);
 		else if (bWater.getBounds().contains(x, y))
 			bWater.setMousePressed(true);
 		else if (bGrass.getBounds().contains(x, y))
@@ -245,6 +295,9 @@ public class Toolbar extends Bar {
 		bSave.resetBooleans();
 		bGrass.resetBooleans();
 		bWater.resetBooleans();
+		bEasy.resetBooleans();
+		bMedium.resetBooleans();
+		bHard.resetBooleans();
 		bPathStart.resetBooleans();
 		bPathEnd.resetBooleans();
 		for (MyButton b : map.keySet())

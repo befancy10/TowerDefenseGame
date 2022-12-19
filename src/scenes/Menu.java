@@ -3,30 +3,34 @@ package scenes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import main.Game;
 import ui.MyButton;
-import ui.ActionBar;
 import static main.GameStates.*;
+import helpz.LoadSave;
 
 public class Menu extends GameScene implements SceneMethods {
 
 	private MyButton bPlaying, bEdit, bSettings, bQuit;
 	private String difficultiesText;
+	private BufferedImage atlas;
 
 	public Menu(Game game) {
 		super(game);
 		initButtons();
+		loadAtalas();
 		
 	}
+
 
 	private void initButtons() {
 
 		int w = 150;
 		int h = w / 3;
 		int x = 640 / 2 - w / 2;
-		int y = 150;
-		int yOffset = 100;
+		int y = 300;
+		int yOffset = 60;
 
 		bPlaying = new MyButton("Play", x, y, w, h);
 		bEdit = new MyButton("Edit", x, y + yOffset, w, h);
@@ -37,9 +41,10 @@ public class Menu extends GameScene implements SceneMethods {
 
 	@Override
 	public void render(Graphics g) {
-
+		drawcover(g);
+		
+		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
 		drawButtons(g);
-	
 		drawDifficultyText(g);
 
 	}
@@ -51,19 +56,17 @@ public class Menu extends GameScene implements SceneMethods {
 		bQuit.draw(g);
 
 	}
+	private void drawcover(Graphics g)
+	{
+		g.drawImage(getcover(0, 0), 0, 0, 640, 800, null);
+	}
 	
 
 	private void drawDifficultyText(Graphics g) {
 		this.difficultiesText = "Difficulty : " + difficulty.getDifficultyString();
-		g.setColor(Color.RED);
+		g.setColor(Color.black);
 		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
-		g.drawString(difficultiesText, 245, 700);
-	}
-	
-	private void drawChooseDifficulty(Graphics g) {
-		g.setColor(Color.RED);
-		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
-		g.drawString("", 245, 700);
+		g.drawString(difficultiesText, 240, 570);
 	}
 	
 	
@@ -132,5 +135,13 @@ public class Menu extends GameScene implements SceneMethods {
 		// TODO Auto-generated method stub
 
 	}
+	
+	private BufferedImage getcover(int xCord, int yCord) {
+		return atlas.getSubimage(xCord * 0, yCord * 0, 640, 800);
+	}
+	private void loadAtalas() {
+		atlas = LoadSave.getcover();
+	}
+
 
 }

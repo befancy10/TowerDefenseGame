@@ -17,16 +17,64 @@ public class LoadSave {
 
 	public static BufferedImage getSpriteAtlas() {
 		BufferedImage img = null;
-		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("res/lastly.png");
+		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("res/finalbgt.png");
 
 		try {
-			img = ImageIO.read(new File("res/lastly.png"));
+			img = ImageIO.read(new File("res/finalbgt.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return img;
 	}
+	public static BufferedImage getcover() {
+		BufferedImage img = null;
+		InputStream is2 = LoadSave.class.getClassLoader().getResourceAsStream("res/homemenu.png");
 
+		try {
+			img = ImageIO.read(new File("res/homemenu.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
+	public static BufferedImage getsettingscreen() {
+		BufferedImage img = null;
+		InputStream is2 = LoadSave.class.getClassLoader().getResourceAsStream("res/settings.png");
+
+		try {
+			img = ImageIO.read(new File("res/settings.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
+	public static BufferedImage getwinscreen() {
+		BufferedImage img = null;
+		InputStream is2 = LoadSave.class.getClassLoader().getResourceAsStream("res/winscreen.png");
+
+		try {
+			img = ImageIO.read(new File("res/winscreen.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
+	
+	public static BufferedImage getlosescreen() {
+		BufferedImage img = null;
+		InputStream is2 = LoadSave.class.getClassLoader().getResourceAsStream("res/losescreen.png");
+
+		try {
+			img = ImageIO.read(new File("res/losescreen.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
 	public static void CreateFile() {
 		File txtFile = new File("res/testTextFile.txt");
 

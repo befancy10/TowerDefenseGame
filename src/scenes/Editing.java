@@ -14,13 +14,14 @@ import static helpz.Constants.Tiles.ROAD_TILE;
 
 public class Editing extends GameScene implements SceneMethods {
 
-	private int[][] lvl;
+	public int[][] lvl;
 	private Tile selectedTile;
 	private int mouseX, mouseY;
 	private int lastTileX, lastTileY, lastTileId;
 	private boolean drawSelect;
 	private Toolbar toolbar;
-	private PathPoint start, end;
+	public PathPoint start, end;
+	private boolean gamesave;
 
 	public Editing(Game game) {
 		super(game);
@@ -29,8 +30,8 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	private void loadDefaultLevel() {
-		lvl = LoadSave.GetLevelData("new_level");
-		ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("new_level");
+		lvl = LoadSave.GetLevelData("hard");
+		ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("hard");
 		start = points.get(0);
 		end = points.get(1);
 	}
@@ -79,7 +80,6 @@ public class Editing extends GameScene implements SceneMethods {
 	public void saveLevel() {
 
 		LoadSave.SaveLevel("new_level", lvl, start, end);
-		game.getPlaying().setLevel(lvl);
 
 	}
 
@@ -162,8 +162,19 @@ public class Editing extends GameScene implements SceneMethods {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_R)
-			toolbar.rotateSprite();
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			toolbar.rotateSpriteright();
+		
+	}
+	
+	public void setgamesave(boolean gamesave)
+	{
+		this.gamesave = gamesave;
+	}
+	
+	public boolean isgamesave()
+	{
+		return gamesave;
 	}
 
 }

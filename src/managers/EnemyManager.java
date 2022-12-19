@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import enemies.jelly;
 import enemies.Enemy;
-import enemies.ghost;
 import enemies.bat;
+import enemies.ghost;
 import enemies.boss;
 import enemies.gengar;
 import helpz.LoadSave;

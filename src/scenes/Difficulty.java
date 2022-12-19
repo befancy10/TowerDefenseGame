@@ -9,16 +9,6 @@ public class Difficulty {
 		super();
 		this.difficultyINT = 1;
 		this.difficultyString = "Easy";
-	/*	if (difficultyINT == 1) {
-			this.difficultyString = "Easy";
-		}
-		else if (difficultyINT == 2) {
-			this.difficultyString = "Medium";
-		}
-		else if (difficultyINT == 3) {
-			this.difficultyString = "Hard";
-		}
-		*/
 	}
 	
 	public void setObjectDifficulty(int DifficultyINT, String DifficultyString) {

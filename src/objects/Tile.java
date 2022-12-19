@@ -6,6 +6,7 @@ public class Tile {
 
 	private BufferedImage[] sprite;
 	private int id, tileType;
+	private String name;
 
 	public Tile(BufferedImage sprite, int id, int tileType) {
 		this.sprite = new BufferedImage[1];
@@ -38,6 +39,10 @@ public class Tile {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 }
