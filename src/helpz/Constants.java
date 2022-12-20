@@ -46,13 +46,13 @@ public class Constants {
 		public static String GetName(int towerType) {
 			switch (towerType) {
 			case CANNON:
-				return "Cannon";
+				return "Snorlax";
 			case ARCHER:
-				return "Archer";
+				return "Mimikyu";
 			case FIREFIZARD:
-				return "Fire Wizard";
+				return "Moltres";
 			case ICEWIZ:
-				return "Ice Wizard";
+				return "Lugia";
 			}
 			return "";
 		}
@@ -79,9 +79,9 @@ public class Constants {
 			case ARCHER:
 				return 120;
 			case FIREFIZARD:
-				return 100;
+				return 50;
 			case ICEWIZ:
-				return 100;
+				return 50;
 			}
 
 			return 0;

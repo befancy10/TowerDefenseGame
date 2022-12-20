@@ -13,6 +13,7 @@ import ui.MyButton;
 import static main.GameStates.*;
 import scenes.GameScene;
 import helpz.LoadSave;
+import scenes.Playing;
 
 public class Settings extends GameScene implements SceneMethods {
 
@@ -76,20 +77,24 @@ public class Settings extends GameScene implements SceneMethods {
 			Playing.start = points.get(0);
 			Playing.end = points.get(1);
 			
+			
 		}
 		
 		else if (bMedium.getBounds().contains(x, y))
 		{
+			game.getPlaying().resetEverything();
 			difficulty.setObjectDifficulty(2, "Medium");
 			Playing.lvl = LoadSave.GetLevelData("Medium");
 			ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("Medium");
 			Playing.start = points.get(0);
 			Playing.end = points.get(1);
+	
 			
 
 		}
 		else if (bHard.getBounds().contains(x, y))
 		{
+			game.getPlaying().resetEverything();
 			difficulty.setObjectDifficulty(3, "Hard");
 			Playing.lvl = LoadSave.GetLevelData("Hard");
 			ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("Hard");

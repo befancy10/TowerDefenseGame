@@ -2,12 +2,14 @@ package enemies;
 
 import java.awt.Rectangle;
 
-import managers.EnemyManager;
+import javax.sound.midi.VoiceStatus;
+
+import managers.MobManager;
 
 import static helpz.Constants.Direction.*;
 
 public abstract class Enemy {
-	protected EnemyManager enemyManager;
+	protected MobManager enemyManager;
 	protected float x, y;
 	protected Rectangle bounds;
 	protected int health;
@@ -20,8 +22,12 @@ public abstract class Enemy {
 	protected int burnTickLimit = 120;
 	protected int slowTick = slowTickLimit;
 	protected int burntick = burnTickLimit;
+	protected int zapTickLimit = 120;
+	protected int zapTick = zapTickLimit;
+	
+	
 
-	public Enemy(float x, float y, int ID, int enemyType, EnemyManager enemyManager) {
+	public Enemy(float x, float y, int ID, int enemyType, MobManager enemyManager) {
 		this.x = x;
 		this.y = y;
 		this.ID = ID;
@@ -59,6 +65,11 @@ public abstract class Enemy {
 	public void burn() {
 		burntick = 0;
 	}
+	
+	public void zap()
+	{
+		zapTick = 0;
+	}
 
 	public void move(float speed, int dir) {
 		lastDir = dir;
@@ -73,6 +84,12 @@ public abstract class Enemy {
 			burntick++;
 			health -=5;
 		}
+		if(zapTick < zapTickLimit)
+		{
+			zapTick++;
+			speed *= 0;
+		}
+	
 
 		switch (dir) {
 		case LEFT:
@@ -146,6 +163,10 @@ public abstract class Enemy {
 	public boolean isburnt()
 	{
 		return burntick < burnTickLimit;
+	}
+	public boolean iszapped()
+	{
+		return zapTick < zapTickLimit;
 	}
 				
 	}

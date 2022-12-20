@@ -13,7 +13,7 @@ import java.util.concurrent.Flow.Publisher;
 import enemies.Enemy;
 import helpz.LoadSave;
 import main.Game;
-import managers.EnemyManager;
+import managers.MobManager;
 import managers.ProjectileManager;
 import managers.TowerManager;
 import managers.WaveManager;
@@ -29,11 +29,11 @@ public class Playing extends GameScene implements SceneMethods {
 
 	private ActionBar actionBar;
 	private int mouseX, mouseY;
-	private EnemyManager enemyManager;
+	private MobManager enemyManager;
 	private TowerManager towerManager;
 	private ProjectileManager projManager;
 	private WaveManager waveManager;
-	public static PathPoint start, end;
+	protected static PathPoint start, end;
 	private Tower selectedTower;
 	private int goldTick;
 	private boolean gamePaused;
@@ -44,7 +44,7 @@ public class Playing extends GameScene implements SceneMethods {
 		loadDefaultLevel();
 
 		actionBar = new ActionBar(0, 640, 640, 160, this);
-		enemyManager = new EnemyManager(this, start, end);
+		enemyManager = new MobManager(this, start, end);
 		towerManager = new TowerManager(this);
 		projManager = new ProjectileManager(this);
 		waveManager = new WaveManager(this);
@@ -65,10 +65,10 @@ public class Playing extends GameScene implements SceneMethods {
 
 	private void loadDefaultLevel() {
 
-			lvl = LoadSave.GetLevelData("Easy");
-			ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("Easy");
-			start = points.get(0);
-			end = points.get(1);
+			lvl = LoadSave.GetLevelData("Hard");
+			ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("Hard");
+			start = points.get(1);
+			end = points.get(0);
 	}
 
 	public void update() {
@@ -300,7 +300,7 @@ public class Playing extends GameScene implements SceneMethods {
 		return towerManager;
 	}
 
-	public EnemyManager getEnemyManger() {
+	public MobManager getEnemyManger() {
 		return enemyManager;
 	}
 

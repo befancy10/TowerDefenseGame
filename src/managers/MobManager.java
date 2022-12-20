@@ -19,7 +19,7 @@ import static helpz.Constants.Direction.*;
 import static helpz.Constants.Tiles.*;
 import static helpz.Constants.Enemies.*;
 
-public class EnemyManager {
+public class MobManager {
 
 	private Playing playing;
 	private BufferedImage[] enemyImgs;
@@ -28,8 +28,9 @@ public class EnemyManager {
 	private int HPbarWidth = 20;
 	private BufferedImage slowEffect;
 	private BufferedImage burnEffect;
+	private BufferedImage zapEffect;
 
-	public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
+	public MobManager(Playing playing, PathPoint start, PathPoint end) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[5];
 		this.start = start;
@@ -42,6 +43,8 @@ public class EnemyManager {
 	private void loadEffectImg() {
 		slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 1, 32 * 3, 32, 32);
 		burnEffect = LoadSave.getSpriteAtlas().getSubimage(32*2, 32*3, 32, 32);
+		zapEffect = LoadSave.getSpriteAtlas().getSubimage(32*2, 32*3, 32, 32);
+		
 	}
 	
 
@@ -193,6 +196,8 @@ public class EnemyManager {
 			g.drawImage(slowEffect, (int) e.getX(), (int) e.getY(), null);
 		if(e.isburnt())
 			g.drawImage(burnEffect, (int) e.getX(), (int) e.getY(), null);
+		if(e.iszapped())
+			g.drawImage(zapEffect, (int) e.getX(), (int) e.getY(), null);
 
 	}
 

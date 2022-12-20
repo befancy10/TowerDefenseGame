@@ -84,8 +84,6 @@ public class WaveManager {
 		return waveIndex + 1 < waves.size();
 	}
 	
-	
-
 	public void resetEnemyIndex() {
 		enemyIndex = 0;
 	}
